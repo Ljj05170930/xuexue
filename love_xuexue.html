@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>❄️ 专属雪雪的浪漫时刻 ❄️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Microsoft YaHei', cursive;
+        }
+
+        /* 雪景层 */
+        .snow-scene {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, #b6e0ff 0%, #f0f8ff 100%);
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: snowfall linear infinite;
+        }
+
+        @keyframes snowfall {
+            0% { transform: translateY(-10vh) translateX(0); opacity: 1; }
+            100% { transform: translateY(110vh) translateX(30vw); opacity: 0.3; }
+        }
+
+        /* 主内容层 */
+        .content-wrapper {
+            position: relative;
+            z-index: 3;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .heart-container {
+            margin: 30px auto;
+            width: 200px;
+            height: 200px;
+            animation: heartbeat 1.2s ease-in-out infinite;
+        }
+
+        .heart {
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23FF2A6F" d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z"/></svg>');
+            background-size: contain;
+            filter: drop-shadow(0 0 10px rgba(255,42,111,0.5));
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.15); }
+            50% { transform: scale(1.05); }
+            75% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .proposal-text {
+            text-align: center;
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin: 30px 20px;
+            line-height: 1.5;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .btn {
+            padding: 16px 50px;
+            font-size: 1.8em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+            color: white;
+            box-shadow: 0 6px 20px rgba(255,107,107,0.3);
+        }
+
+        #yesBtn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,107,107,0.5);
+        }
+
+        #noBtn {
+            background: linear-gradient(135deg, #6c5ce7 0%, #a8a4e6 100%);
+            color: white;
+            box-shadow: 0 6px 20px rgba(108,92,231,0.3);
+        }
+
+        /* 第二阶段视频层 */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            display: none;
+        }
+
+        #loveVideo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85);
+        }
+
+        /* 樱花雨 */
+        .petal {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            animation: petalFall 12s linear infinite;
+            opacity: 0.9;
+            z-index: 1000;
+            background: url('data:image/svg+xml,<svg viewBox="0 0 512 512"><path fill="%23FF99CC" d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"/></svg>');
+            background-size: contain;
+        }
+
+        @keyframes petalFall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(1200deg); opacity: 0; }
+        }
+
+        /* 提示信息 */
+        .refuse-tip {
+            position: absolute;
+            color: #ff4757;
+            font-weight: 800;
+            font-size: 1.3em;
+            animation: tipFloat 1.5s ease-out forwards;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        @keyframes tipFloat {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100px) scale(2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 雪花背景 -->
+    <div class="snow-scene" id="snowScene"></div>
+
+    <!-- 主内容 -->
+    <div class="content-wrapper">
+        <div class="heart-container">
+            <div class="heart"></div>
+        </div>
+        <div class="proposal-text">
+            ❄️ 嗨~我的雪雪公主 ❄️<br>
+            你愿意让我守护你的余生吗？
+        </div>
+        <div class="button-group">
+            <button id="yesBtn" class="btn" onclick="startRomance()">非常愿意！</button>
+            <button id="noBtn" class="btn" onmouseover="dodgeButton()">再想想</button>
+        </div>
+    </div>
+
+    <!-- 视频场景 -->
+    <div class="video-container" id="videoSection">
+        <video id="loveVideo" muted loop>
+            <source src="your-video.mp4" type="video/mp4">
+        </video>
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="love-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 初始化雪花
+        function createSnowflakes() {
+            const scene = document.getElementById('snowScene');
+            for(let i = 0; i < 88; i++) {
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.animationDuration = Math.random() * 3 + 8 + 's';
+                flake.style.animationDelay = Math.random() * 5 + 's';
+                scene.appendChild(flake);
+            }
+        }
+        createSnowflakes();
+
+        // 拒绝按钮逻辑
+        function dodgeButton() {
+            const btn = document.getElementById('noBtn');
+            const maxX = window.innerWidth - btn.offsetWidth;
+            const maxY = window.innerHeight - btn.offsetHeight;
+            
+            const newX = Math.max(50, Math.min(maxX - 50, Math.random() * maxX));
+            const newY = Math.max(50, Math.min(maxY - 50, Math.random() * maxY));
+            
+            btn.style.position = 'absolute';
+            btn.style.left = newX + 'px';
+            btn.style.top = newY + 'px';
+            
+            const tip = document.createElement('div');
+            tip.className = 'refuse-tip';
+            tip.textContent = '╭(╯^╰)╮ 不要跑嘛~';
+            tip.style.left = `${newX + 30}px`;
+            tip.style.top = `${newY}px`;
+            document.body.appendChild(tip);
+            
+            setTimeout(() => tip.remove(), 1500);
+        }
+
+        // 启动浪漫场景
+        function startRomance() {
+            document.querySelector('.content-wrapper').style.opacity = '0';
+            document.getElementById('snowScene').style.display = 'none';
+
+            const videoContainer = document.getElementById('videoSection');
+            videoContainer.style.display = 'block';
+            
+            const video = document.getElementById('loveVideo');
+            video.play().catch(() => video.muted = true);
+            
+            createPetalStorm();
+            
+            const music = document.getElementById('bgMusic');
+            music.play().catch(() => {
+                music.muted = true;
+                music.play();
+            });
+        }
+
+        // 樱花雨生成
+        function createPetalStorm() {
+            const petalField = document.createElement('div');
+            petalField.id = 'petalField';
+            document.body.appendChild(petalField);
+
+            for(let i = 0; i < 36; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animation = `petalFall ${12 + Math.random() * 6}s cubic-bezier(0.4,0,0.2,1) ${Math.random() * 3}s infinite`;
+                petalField.appendChild(petal);
+            }
+        }
+    </script>
+</body>
+</html>
