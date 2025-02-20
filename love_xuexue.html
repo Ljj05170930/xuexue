@@ -275,6 +275,23 @@
                 petalField.appendChild(petal);
             }
         }
+        window.addEventListener('DOMContentLoaded', () => {
+            const noBtn = document.getElementById('noBtn');
+            noBtn.addEventListener('mouseover', dodgeButton);
+            noBtn.addEventListener('touchstart', dodgeButton);
+            
+            // 音频预加载
+            document.body.addEventListener('touchstart', initAudio, { once: true });
+        });
+
+        function initAudio() {
+            const music = document.getElementById('bgMusic');
+            music.muted = true; // 初始静音
+            music.play()
+                .then(() => {
+                    setTimeout(() => music.muted = false, 1000);
+                });
+        }
     </script>
 </body>
 </html>
